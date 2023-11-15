@@ -1,14 +1,16 @@
 pipeline {
     agent {
         node{
-            level = "maven"
+            label 'maven'
         }
     }
-
+environment{
+    PATH = "/opt/apache-maven-3.9.5/bin:$PATH"
+}
     stages {
-        stage('clone code') {
+        stage('Build') {
             steps {
-                git branch: 'main' url: 'https://github.com/Snkdeep/AWS-Traing.git'
+                sh 'mvn clean deploy'
             }
         }
     }
